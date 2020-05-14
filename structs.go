@@ -1100,8 +1100,15 @@ type MessageReaction struct {
 
 // GatewayBotResponse stores the data for the gateway/bot response
 type GatewayBotResponse struct {
-	URL    string `json:"url"`
-	Shards int    `json:"shards"`
+	URL               string            `json:"url"`
+	Shards            int               `json:"shards"`
+	SessionStartLimit SessionStartLimit `json:"session_start_limit"`
+}
+
+type SessionStartLimit struct {
+	Total      int `json:"total"`
+	Remaining  int `json:"remaining"`
+	ResetAfter int `json:"reset_after"`
 }
 
 // GatewayStatusUpdate is sent by the client to indicate a presence or status update
