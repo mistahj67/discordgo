@@ -15,6 +15,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/warmind-io/warmind/util"
 	"image"
 	_ "image/jpeg" // For JPEG decoding
 	_ "image/png"  // For PNG decoding
@@ -71,6 +72,9 @@ func (s *Session) request(method, urlStr, contentType string, b []byte, bucketID
 	if bucketID == "" {
 		bucketID = strings.SplitN(urlStr, "?", 2)[0]
 	}
+
+	util.IncrMetric("dbotgo.discord.apicall", []string{}, 1)
+
 	return s.RequestWithLockedBucket(method, urlStr, contentType, b, s.Ratelimiter.LockBucket(bucketID), sequence, reason)
 }
 
